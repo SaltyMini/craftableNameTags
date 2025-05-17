@@ -1,0 +1,4 @@
+name: craftableNameTags
+version: '1.0-SNAPSHOT'
+main: Clay.Sam.craftableNameTags.CraftableNameTags
+api-version: '1.21'

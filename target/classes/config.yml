@@ -1,0 +1,9 @@
+recipe-line-1: '111'
+recipe-line-2: '121'
+recipe-line-3: '345'
+
+item-1: "DIAMOND"
+item-2: "GOLD_INGOT"
+item-3: "IRON_INGOT"
+item-4: "EMERALD"
+item-5: "NETHERITE_INGOT"
