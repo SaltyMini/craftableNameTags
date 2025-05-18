@@ -8,7 +8,9 @@ import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public final class CraftableNameTags extends JavaPlugin {
 
@@ -21,9 +23,10 @@ public final class CraftableNameTags extends JavaPlugin {
 
         try {
 
-            String line1 = plugin.getConfig().getString("recipe-line-1");
-            String line2 = plugin.getConfig().getString("recipe-line-2");
-            String line3 = plugin.getConfig().getString("recipe-line-3");
+            String[] lines = new String[3];
+            lines[0] = plugin.getConfig().getString("recipe-line-1");
+            lines[1] = plugin.getConfig().getString("recipe-line-2");
+            lines[2] = plugin.getConfig().getString("recipe-line-3");
 
             Material[] items = new Material[9];
             for (int i = 0; i < 9; i++) {
@@ -35,43 +38,47 @@ public final class CraftableNameTags extends JavaPlugin {
                 items[i] = mat;
             }
 
-            if(line1 == null || line2 == null || line3 == null) {
-                throw new NullPointerException();
-            }
-
             ItemStack nameTag = new ItemStack(Material.NAME_TAG);
 
             try {
+
+                Set<Character> usedSymbols = new HashSet<>();
+                for (String line : lines) {
+                    for (char c : line.toCharArray()) {
+                        if (c != '#') usedSymbols.add(c);
+                    }
+                }
+
                 NamespacedKey key = new NamespacedKey(this, "craftableNameTag");
                 ShapedRecipe recipe = new ShapedRecipe(key, nameTag);
-                recipe.shape(line1, line2, line3);
-                recipe.setIngredient('1', items[0]);
-                recipe.setIngredient('2', items[1]);
-                recipe.setIngredient('3', items[2]);
-                recipe.setIngredient('4', items[3]);
-                recipe.setIngredient('5', items[4]);
-                recipe.setIngredient('6', items[5]);
-                recipe.setIngredient('7', items[6]);
-                recipe.setIngredient('8', items[7]);
-                recipe.setIngredient('9', items[8]);
+                recipe.shape(lines[0], lines[1], lines[2]);
+
+                for (char symbol : usedSymbols) {
+                    if (Character.isDigit(symbol)) {
+                        int idx = Character.getNumericValue(symbol) - 1;
+                        if (idx >= 0 && idx < items.length) {
+                            recipe.setIngredient(symbol, items[idx]);
+                        }
+                    }
+                }
                 getServer().addRecipe(recipe);
 
             } catch (NullPointerException e) {
+                getLogger().warning("Unable to create recipe");
+                getLogger().warning("Warning: " + e.getMessage());
                 getLogger().warning("One or more of the recipe lines in the config.yml is invalid. Please check your config.yml file.");
                 return;
             }
 
         } catch (IllegalArgumentException e) {
+            getLogger().warning("Warning: " + e.getMessage());
             getLogger().warning("One or more of the items in the config.yml is invalid. Please check your config.yml file.");
-            return;
-
-            // Plugin startup logic
         } catch (NullPointerException e) {
+            getLogger().warning("Warning: " + e.getMessage());
             getLogger().warning("One or more of the recipe lines in the config.yml is invalid. Please check your config.yml file.");
-            return;
         } catch (Exception e) {
+            getLogger().warning("Warning: " + e.getMessage());
             getLogger().warning("An unknown error occurred. Please check your config.yml file.");
-            return;
         }
     }
 
