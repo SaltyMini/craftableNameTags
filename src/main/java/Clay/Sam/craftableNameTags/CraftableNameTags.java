@@ -2,6 +2,7 @@ package Clay.Sam.craftableNameTags;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
@@ -24,15 +25,15 @@ public final class CraftableNameTags extends JavaPlugin {
             String line2 = plugin.getConfig().getString("recipe-line-2");
             String line3 = plugin.getConfig().getString("recipe-line-3");
 
-            ItemStack item1 = new ItemStack(Objects.requireNonNull(Material.getMaterial(plugin.getConfig().getString("item-1"))));
-            ItemStack item2 = new ItemStack(Objects.requireNonNull(Material.getMaterial(plugin.getConfig().getString("item-2"))));
-            ItemStack item3 = new ItemStack(Objects.requireNonNull(Material.getMaterial(plugin.getConfig().getString("item-3"))));
-            ItemStack item4 = new ItemStack(Objects.requireNonNull(Material.getMaterial(plugin.getConfig().getString("item-4"))));
-            ItemStack item5 = new ItemStack(Objects.requireNonNull(Material.getMaterial(plugin.getConfig().getString("item-5"))));
-            ItemStack item6 = new ItemStack(Material.getMaterial(plugin.getConfig().getString("item-6")));
-            ItemStack item7 = new ItemStack(Material.getMaterial(plugin.getConfig().getString("item-7")));
-            ItemStack item8 = new ItemStack(Material.getMaterial(plugin.getConfig().getString("item-8")));
-            ItemStack item9 = new ItemStack(Material.getMaterial(plugin.getConfig().getString("item-9")));
+            Material[] items = new Material[9];
+            for (int i = 0; i < 9; i++) {
+                String key = "item-" + (i + 1);
+                String matName = plugin.getConfig().getString(key);
+                assert matName != null;
+                Material mat = Material.getMaterial(matName);
+                Objects.requireNonNull(mat, "Invalid material for " + key + " in config.yml");
+                items[i] = mat;
+            }
 
             if(line1 == null || line2 == null || line3 == null) {
                 throw new NullPointerException();
@@ -41,18 +42,18 @@ public final class CraftableNameTags extends JavaPlugin {
             ItemStack nameTag = new ItemStack(Material.NAME_TAG);
 
             try {
-                ShapedRecipe recipe = new ShapedRecipe(nameTag);
+                NamespacedKey key = new NamespacedKey(this, "craftableNameTag");
+                ShapedRecipe recipe = new ShapedRecipe(key, nameTag);
                 recipe.shape(line1, line2, line3);
-                item1.getType();
-                recipe.setIngredient('1', item1.getType());
-                recipe.setIngredient('2', item2.getType());
-                recipe.setIngredient('3', item3.getType());
-                recipe.setIngredient('4', item4.getType());
-                recipe.setIngredient('5', item5.getType());
-                recipe.setIngredient('6', item6.getType());
-                recipe.setIngredient('7', item7.getType());
-                recipe.setIngredient('8', item8.getType());
-                recipe.setIngredient('9', item9.getType());
+                recipe.setIngredient('1', items[0]);
+                recipe.setIngredient('2', items[1]);
+                recipe.setIngredient('3', items[2]);
+                recipe.setIngredient('4', items[3]);
+                recipe.setIngredient('5', items[4]);
+                recipe.setIngredient('6', items[5]);
+                recipe.setIngredient('7', items[6]);
+                recipe.setIngredient('8', items[7]);
+                recipe.setIngredient('9', items[8]);
                 getServer().addRecipe(recipe);
 
             } catch (NullPointerException e) {
