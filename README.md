@@ -2,6 +2,8 @@ Welcome to craftableNameTags
 
 This super straight forward plugin is unnoticable on recourses and easy to configure
 
+Download on spigot - https://www.spigotmc.org/resources/craftable-nametags-1-17-1-1-21-5.125107/
+
 ```yml
 recipe-line-1: '#1#'
 recipe-line-2: '121'
