@@ -17,6 +17,8 @@ public final class CraftableNameTags extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        checkForUpdates();
+
         Plugin plugin = Bukkit.getPluginManager().getPlugin("CraftableNameTags");
         assert plugin != null;
         plugin.saveDefaultConfig();
@@ -80,6 +82,18 @@ public final class CraftableNameTags extends JavaPlugin {
             getLogger().warning("Warning: " + e.getMessage());
             getLogger().warning("An unknown error occurred. Please check your config.yml file.");
         }
+    }
+
+    private void checkForUpdates() {
+        new UpdateCheck(this, 125107).getVersion(version -> {
+            String currentVersion = this.getDescription().getVersion();
+            if (!currentVersion.equals(version)) {
+                getLogger().info("There is a new update available!");
+                getLogger().info("Your version: " + currentVersion);
+                getLogger().info("Latest version: " + version);
+                getLogger().info("Download the latest version from: https://www.spigotmc.org/resources/" + 125107);
+            }
+        });
     }
 
     @Override
