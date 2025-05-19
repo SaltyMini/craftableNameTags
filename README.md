@@ -12,6 +12,12 @@ item-2: "GOLD_INGOT"
 item-3: "IRON_INGOT"
 item-4: "EMERALD"
 item-5: "NETHERITE_INGOT"
+item-6: "AIR"
+item-7: "AIR"
+item-8: "AIR"
+item-9: "AIR"
+#
+#This plugin is brought to you by play.cidermc.com
 ```
 
 To change the recipie shape of the recpie change the respective slot, for empty slots use #
