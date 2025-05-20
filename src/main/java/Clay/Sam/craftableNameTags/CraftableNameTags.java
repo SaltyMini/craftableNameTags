@@ -24,6 +24,11 @@ public final class CraftableNameTags extends JavaPlugin implements CommandExecut
     public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (command.getLabel().equalsIgnoreCase("cnt") || command.getLabel().equalsIgnoreCase("craftablenametags")) {
 
+            if(commandSender.hasPermission("craftablenametags.reload")) {
+                commandSender.sendMessage("You do not have permission to use this command.");
+                return true;
+            }
+
             if (args[0].equalsIgnoreCase("reload")) {
 
                 try {

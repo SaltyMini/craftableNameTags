@@ -11,3 +11,8 @@ commands:
         aliases: [cnt, craftablenameTags]
         permission: craftablenameTags.use
         permission-message: You do not have permission to use this command.
+
+permissions:
+    craftablenameTags.reload:
+        description: Allows the use of the craftableNameTags command
+        default: true
