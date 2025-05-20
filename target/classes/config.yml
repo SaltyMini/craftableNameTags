@@ -1,7 +1,7 @@
 recipe-line-1: '#11'
 recipe-line-2: '231'
 recipe-line-3: '32#'
-# for an empty slot use #
+# For an empty slot use #
 item-1: "STRING"
 item-2: "PAPER"
 item-3: "IRON_INGOT"
@@ -11,5 +11,7 @@ item-6: "AIR"
 item-7: "AIR"
 item-8: "AIR"
 item-9: "AIR"
+# Unused items can be set to any valid item
+# A list of valid items can be found at: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
 #
-#This plugin is brought to you by play.cidermc.com
+# This plugin is brought to you by play.cidermc.com
