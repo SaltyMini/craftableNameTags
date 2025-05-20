@@ -3,18 +3,56 @@ package Clay.Sam.craftableNameTags;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-public final class CraftableNameTags extends JavaPlugin {
+public final class CraftableNameTags extends JavaPlugin implements CommandExecutor {
+
+    NamespacedKey key = new NamespacedKey(this, "craftableNameTag");
 
     @Override
+    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if (command.getLabel().equalsIgnoreCase("cnt") || command.getLabel().equalsIgnoreCase("craftablenametags")) {
+
+            if (args[0].equalsIgnoreCase("reload")) {
+
+                try {
+                    reloadConfig();
+                    Bukkit.removeRecipe(key);
+                    onEnable();
+                } catch (Exception e) {
+                    commandSender.sendMessage("An error occurred while reloading the plugin. Please check the console for more details.");
+                    getLogger().warning("Error reloading plugin: " + e.getMessage());
+                } finally {
+                    commandSender.sendMessage("Plugin reloaded");
+                }
+                return true;
+            }
+
+            if (args.length == 1) {
+                commandSender.sendMessage("Use '/cnt help' to see available commands");
+                return true;
+            }
+
+            return true;
+
+        }
+        return false;
+    }
+
+
+
+        @Override
     public void onEnable() {
 
         checkForUpdates();

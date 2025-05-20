@@ -3,3 +3,11 @@ author: Salt
 version: '1.2.3'
 main: Clay.Sam.craftableNameTags.CraftableNameTags
 api-version: '1.17'
+
+commands:
+    craftableNameTags:
+        description: Craftable Name Tags commands
+        usage: /<command> <subcommand>
+        aliases: [cnt, craftablenameTags]
+        permission: craftablenameTags.use
+        permission-message: You do not have permission to use this command.
