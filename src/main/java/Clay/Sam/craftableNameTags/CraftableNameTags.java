@@ -62,7 +62,7 @@ public final class CraftableNameTags extends JavaPlugin implements CommandExecut
 
         checkForUpdates();
 
-        Plugin plugin = Bukkit.getPluginManager().getPlugin("CraftableNameTags");
+        Plugin plugin = Bukkit.getPluginManager().getPlugin(this.getName());
         assert plugin != null;
         plugin.saveDefaultConfig();
 

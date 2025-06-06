@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/craftableNameTags.iml" filepath="$PROJECT_DIR$/craftableNameTags.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/craftableNameTags.iml" filepath="$PROJECT_DIR$/.idea/craftableNameTags.iml" />
     </modules>
   </component>
 </project>
